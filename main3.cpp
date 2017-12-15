@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <fstream>
@@ -203,10 +204,10 @@ int main(int argc, char* argv[])
             
             case 5:
             {
-               cout << "Укажите название файла";
                string f;
+               cout << "Укажите название файла";
                cin >> f;
-               ofstream fout(f);
+               ofstream fout("f");
                
                for (i = 0; i < x; i++)
                 {
