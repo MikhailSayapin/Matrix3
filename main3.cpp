@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     }
 
     string str1 = "\0", str2 = "\0";
-    int x, y, i, j, k, m, n; 
+    int x, y, i, j, k, m, n;
     for (k = 0; argv[1][k] != '*'; k++)
     {
         str1 += argv[1][k];
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 
     while (true)
     {
-        label_case:
+    label_case:
         cout << "\nВыберите одну из операций:" << endl;
         cout << "1. Вывести матрицу" << endl;
         cout << "2. Сложить матрицу" << endl;
@@ -80,8 +80,8 @@ int main(int argc, char* argv[])
                 cout << "До свидания!" << endl;
                 return 0;
             }
-            
-            
+
+
             case 1:
             {
                 cout << endl;
@@ -96,25 +96,25 @@ int main(int argc, char* argv[])
                 break;
             }
 
-            
+
             case 2:
             {
                 cout << endl;
                 cout << "Введите элементы матрицы размера " << x << "*" << y << endl;
                 int arroper[x][y];
-                for(i=0; i<x; i++)
+                for (i = 0; i < x; i++)
                 {
-                    for(j=0; j<y; j++)
+                    for (j = 0; j < y; j++)
                     {
                         cin >> arroper[i][j];
                     }
                 }
-                
+
                 cout << endl;
-                
-                for(i=0; i<x; i++)
+
+                for (i = 0; i < x; i++)
                 {
-                    for(j=0; j<y; j++)
+                    for (j = 0; j < y; j++)
                     {
                         cout << arr[i][j] + arroper[i][j] << " ";
                     }
@@ -122,8 +122,8 @@ int main(int argc, char* argv[])
                 }
                 break;
             }
-            
-            
+
+
             case 3:
             {
                 cout << endl;
@@ -131,101 +131,120 @@ int main(int argc, char* argv[])
                 cin >> m;
                 cout << "Введите кол-во столбцов" << endl;
                 cin >> n;
-                
+
                 if (m != y)
                 {
                     cout << "Число строк в исходной матрице не равно числу столбцов в данной.\n";
                     goto label_case;
                 }
-                
+
                 cout << "Введите элементы матрицы размера " << m << "*" << n << endl;
-                
+
                 int arroper[m][n];
-                for(j=0; j<m; j++)
+                for (j = 0; j < m; j++)
                 {
-                    for(int q=0; q<n; q++)
+                    for (int q = 0; q < n; q++)
                     {
                         cin >> arroper[j][q];
                     }
                 }
-               
+
                 int arroper2[x][n];
-                for (i = 0; i < x; i++) 
+                for (i = 0; i < x; i++)
                 {
-                   for (int q = 0; q < n; q++)
-                   {
-                       arroper2[i][q] = 0;
-                   }
-                }
-                
-                for(i=0; i<x; i++)
-                {
-                    for(j=0; j<y; j++)
+                    for (int q = 0; q < n; q++)
                     {
-                        for (int q=0; q<n; q++)
+                        arroper2[i][q] = 0;
+                    }
+                }
+
+                for (i = 0; i < x; i++)
+                {
+                    for (j = 0; j < y; j++)
+                    {
+                        for (int q = 0; q < n; q++)
                         {
                             arroper2[i][q] = arr[i][j] * arroper[j][q] + arroper2[i][q];
                         }
                     }
                 }
-                
-                 for(i=0; i<x; i++)
+
+                for (i = 0; i < x; i++)
                 {
-                   for (int q=0; q<n; q++)
-                   {
-                       cout << arroper2[i][q] << " ";
-                   }
-                   cout << endl;
+                    for (int q = 0; q < n; q++)
+                    {
+                        cout << arroper2[i][q] << " ";
+                    }
+                    cout << endl;
                 }
-                
-                
-    
+
+
                 break;
             }
-            
-            
+
+
             case 4:
             {
                 cout << endl;
-                for (i=0; i<y; i++)
+                for (i = 0; i < y; i++)
                 {
-                    for (j=0; j<x; j++)
+                    for (j = 0; j < x; j++)
                     {
                         swap(i, j);
                         cout << arr[i][j] << " ";
-                        swap (j, i);
+                        swap(j, i);
                     }
                     cout << endl;
                 }
             }
-            
+
             break;
-            
-            
+
+
             case 5:
             {
-               string f;
-               cout << "Укажите название файла";
-               cin >> f;
-               ofstream fout("f");
-               
-               for (i = 0; i < x; i++)
+                char f[100];
+                cout << "Укажите название файла\t";
+                cin >> f;
+                ofstream fout;
+                fout.open(f);
+
+                for (i = 0; i < x; i++)
                 {
                     for (j = 0; j < y; j++)
                     {
                         fout << arr[i][j] << " ";
                     }
-                    cout << endl;
+                    fout << endl;
                 }
-                
+
                 fout.close();
                 break;
             }
 
-            
-            
+
+            case 6:
+            {
+                char f[100];
+                string* name = new string;
+                cout << "Укажите путь к файлу\t";
+                cin >> f;
+                ifstream file(f, ios::in);
+                if (!file.is_open())
+                {
+                    cout << "\nОшибка открытия файла!\n";
+                    goto label_case;
+                }
+                while (!file.eof())
+                {
+                    getline(file, *name);
+                    cout << *name << endl;
+                }
+
+                break;
+            }
             default:
-                cout << "Номер операции введён неверно.";
+                cout << "\nНомер операции введён неверно.\n";
         }
     }
 
